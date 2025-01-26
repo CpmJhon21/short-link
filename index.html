@@ -1,106 +1,44 @@
+<!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Short Link Generator
-  </title>
-  <script src="https://cdn.tailwindcss.com">
-  </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Short Link Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-   body {
+    body {
       font-family: 'Roboto', sans-serif;
     }
   </style>
- </head>
- <body class="bg-gray-100 flex items-center justify-center min-h-screen relative">
-  <div class="absolute top-4 right-4">
-   <div class="relative">
-    <button class="text-gray-700 focus:outline-none bg-white p-2 rounded-md shadow-md border border-gray-200" id="menu-button">
-     <i class="fas fa-bars text-2xl">
-     </i>
-    </button>
-    <div class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden" id="menu">
-     <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="https://cpm-jhon.my.id">
-      Home
-     </a>
-     <div class="relative">
-      <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer" id="about-button">
-       About
-      </a>
-      <div class="hidden" id="about-menu">
-       <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="myteam.html">
-        Our Team
-       </a>
-       <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="ourstory.html">
-        Our Story
-       </a>
-      </div>
-     </div>
-     <div class="relative">
-      <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer" id="contact-button">
-       Donate
-      </a>
-      <div class="hidden" id="contact-menu">
-       <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="https://paypal.me/cpmjhon" target="_blank" rel="noopener noreferrer">
-        PayPal
-       </a>
-       <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="https://saweria.co/CpmJhon">
-        Saweria
-       </a>
-      </div>
-     </div>
-    </div>
-   </div>
-  </div>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
   <main class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-   <div class="flex items-center mb-6 bg-gray-300 py-2 px-4 rounded-md shadow-md border border-gray-400">
-    <img alt="Logo of the Short Link Generator application, a stylized chain link icon" class="w-12 h-12 mr-4" src="https://i.ibb.co.com/S01LXSj/cpm-jhon.jpg"/>
-    <span class="text-xl font-bold text-black">
-     Short Link
-    </span>
-   </div>
-   <div class="flex flex-col items-center mb-6">
-    <div class="bg-gray-300 text-black py-2 px-4 rounded-md shadow-md border border-gray-400 w-full text-center">
-     <h1 class="text-2xl font-bold">
-      Short Link Generator
-     </h1>
+    <h1 class="text-2xl font-bold mb-6 text-center">Short Link Generator</h1>
+    <form id="shorten-form" class="space-y-4">
+      <div>
+        <label for="long-url" class="block text-sm font-medium text-gray-700">Enter your long URL:</label>
+        <input id="long-url" type="text" class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md" placeholder="https://example.com/very-long-url" required>
+      </div>
+      <div>
+        <label for="service" class="block text-sm font-medium text-gray-700">Select Service:</label>
+        <select id="service" class="block w-full mt-1 px-3 py-2 border border-gray-300 rounded-md">
+          <option value="tinyurl">TinyURL</option>
+          <option value="bitly">Bitly</option>
+          <option value="cuttly">Cutt.ly</option>
+          <option value="vgd">v.gd</option>
+        </select>
+      </div>
+      <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">Generate Short Link</button>
+    </form>
+    <div id="result" class="hidden mt-6">
+      <p class="text-sm font-medium text-gray-700">Short URL:</p>
+      <p id="short-url" class="text-lg font-semibold text-indigo-600"></p>
     </div>
-   </div>
-   <form class="space-y-4" id="shorten-form">
-    <div>
-     <label class="block text-sm font-medium text-gray-700" for="long-url">
-      Enter your long URL:
-     </label>
-     <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="long-url" placeholder="https://example.com/very-long-url" required="" type="text"/>
-    </div>
-        <label for="service" class="block text-gray-700 font-bold">
-      Select Service:
-    </label>
-    <select id="service" class="border rounded w-full p-2" required>
-      <option value="tinyurl">TinyURL</option>
-      <option value="bitly">Bitly</option>
-      <option value="cuttly">Cutt.ly</option>
-      <option value="vgd">v.gd</option>
-    </select>
-    <button class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">
-     Generate Short Link
-    </button>
-   </form>
-   <div class="hidden mt-6" id="result">
-    <p class="text-sm font-medium text-gray-700">
-     Short URL:
-    </p>
-    <p class="text-lg font-semibold text-indigo-600" id="short-url">
-    </p>
-   </div>
   </main>
-    <script src="vgd.js"></script>
-    <script src="Bitly.js"></script>
-    <script src="cuttly.js"></script>
-    <script src="app.js"></script>
-    <script src="script.js"></script>
- </body>
+
+  <script type="module" src="app.js"></script>
+</body>
 </html>
