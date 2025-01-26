@@ -7,14 +7,11 @@ export async function shortenWithTinyURL(longUrl) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${API_KEY_TINYURL}`,
     },
-    body: JSON.stringify({
-      url: longUrl,
-      domain: "tinyurl.com",
-    }),
+    body: JSON.stringify({ url: longUrl }),
   });
 
   if (!response.ok) {
-    throw new Error(`TinyURL API Error: ${response.status} ${response.statusText}`);
+    throw new Error("TinyURL API Error");
   }
 
   const data = await response.json();
