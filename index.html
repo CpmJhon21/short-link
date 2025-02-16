@@ -8,15 +8,66 @@
   <script src="https://cdn.tailwindcss.com">
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet"/>
   <style>
    body {
-      font-family: 'Roboto', sans-serif;
+      font-family: Arial, sans-serif;
+    }
+
+    .loader {
+      border-top-color: #3498db;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .rainbow-text {
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+      background-size: 400% 400%;
+      animation: rainbow 3s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes rainbow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
     }
   </style>
  </head>
  <body class="bg-gray-100 flex items-center justify-center min-h-screen relative">
-  <div class="absolute top-4 right-4">
+  <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center">
+   <video autoplay loop muted class="absolute inset-0 w-full h-full object-cover z-0">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"/>
+    Your browser does not support the video tag.
+   </video>
+   <div class="relative z-10 flex flex-col items-center">
+    <img alt="Logo of the Short Link Generator application, a stylized chain link icon" class="w-24 h-24 mb-4" src="https://storage.googleapis.com/a1aa/image/jGQcKBZkxdYNG1T2FYHUPRBeeVSil1d28kkpIteBFQlu3ASoA.jpg"/>
+    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24 mb-4"></div>
+    <p class="text-xl font-bold rainbow-text text-center">
+     Loading...
+    </p>
+   </div>
+  </div>
+  <video autoplay loop muted class="absolute inset-0 w-full h-full object-cover z-0">
+   <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"/>
+   Your browser does not support the video tag.
+  </video>
+  <audio id="background-music" loop>
+   <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mp3"/>
+   Your browser does not support the audio element.
+  </audio>
+  <div class="absolute top-4 right-4 z-20">
    <div class="relative">
     <button class="text-gray-700 focus:outline-none bg-white p-2 rounded-md shadow-md border border-gray-200" id="menu-button">
      <i class="fas fa-bars text-2xl">
@@ -30,7 +81,7 @@
       <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer" id="about-button">
        About
       </a>
-      <div class="hidden" id="about-menu">
+      <div class="hidden submenu" id="about-menu">
        <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="myteam.html">
         Our Team
        </a>
@@ -43,8 +94,8 @@
       <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100 cursor-pointer" id="contact-button">
        Donate
       </a>
-      <div class="hidden" id="contact-menu">
-       <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="https://paypal.me/cpmjhon" target="_blank" rel="noopener noreferrer">
+      <div class="hidden submenu" id="contact-menu">
+       <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="https://paypal.me/cpmjhon" rel="noopener noreferrer" target="_blank">
         PayPal
        </a>
        <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="https://saweria.co/CpmJhon">
@@ -55,40 +106,60 @@
     </div>
    </div>
   </div>
-  <main class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+  <main class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md z-10">
    <div class="flex items-center mb-6 bg-gray-300 py-2 px-4 rounded-md shadow-md border border-gray-400">
-    <img alt="Logo of the Short Link Generator application, a stylized chain link icon" class="w-12 h-12 mr-4" src="https://i.ibb.co.com/S01LXSj/cpm-jhon.jpg"/>
+    <img alt="Logo of the Short Link Generator application, a stylized chain link icon" class="w-12 h-12 mr-4" height="100" src="https://storage.googleapis.com/a1aa/image/jGQcKBZkxdYNG1T2FYHUPRBeeVSil1d28kkpIteBFQlu3ASoA.jpg" width="100"/>
     <span class="text-xl font-bold text-black">
      Short Link
     </span>
    </div>
-   <div class="flex flex-col items-center mb-6">
-    <div class="bg-gray-300 text-black py-2 px-4 rounded-md shadow-md border border-gray-400 w-full text-center">
-     <h1 class="text-2xl font-bold">
-      Short Link Generator
-     </h1>
-    </div>
-   </div>
+   <h1 class="text-2xl font-bold mb-4">
+    Short Link Generator
+   </h1>
    <form class="space-y-4" id="shorten-form">
     <div>
-     <label class="block text-sm font-medium text-gray-700" for="long-url">
-      Enter your long URL:
+     <label class="block font-medium" for="long-url">
+      Enter URL:
      </label>
-     <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" id="long-url" placeholder="https://example.com/very-long-url" required="" type="text"/>
+     <input class="w-full px-3 py-2 border rounded" id="long-url" placeholder="https://example.com" required="" type="url"/>
     </div>
-    <button class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" type="submit">
+    <div>
+     <label class="block font-medium" for="service">
+      Select Service:
+     </label>
+     <select class="w-full px-3 py-2 border rounded" id="service">
+      <option value="tinyurl">
+       TinyURL
+      </option>
+      <option value="bitly">
+       Bitly
+      </option>
+      <option value="vgd">
+       v.gd
+      </option>
+     </select>
+    </div>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded w-full" type="submit">
      Generate Short Link
     </button>
    </form>
-   <div class="hidden mt-6" id="result">
-    <p class="text-sm font-medium text-gray-700">
+   <div class="hidden mt-4" id="result">
+    <p class="font-medium">
      Short URL:
     </p>
-    <p class="text-lg font-semibold text-indigo-600" id="short-url">
-    </p>
+    <a class="text-blue-500" href="#" id="short-url" target="_blank">
+    </a>
    </div>
   </main>
-    <script src="app.js"></script>
-    <script src="script.js"></script>
+  <script src="script.js">
+  </script>
+  <script src="app.js">
+  </script>
+  <script src="tinyurl.js">
+  </script>
+  <script src="bitly.js">
+  </script>
+  <script src="vgd.js">
+  </script>
  </body>
 </html>
