@@ -1,0 +1,13 @@
+{
+  "name": "short-link-generator",
+  "version": "1.0.0",
+  "description": "Generate short links using multiple services",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.4",
+    "express": "^4.21.2"
+  }
+}
